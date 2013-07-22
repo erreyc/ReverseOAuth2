@@ -89,9 +89,17 @@ abstract class AbstractOAuth2Client
         return $this->session->state;
     }
     
-    protected function generateState()
+    protected function generateState($options)
     {
-        $this->session->state = md5(microtime().'-'.get_class($this));
+    	if(isset($options) && !empty($options)){
+    		if($options['append']== true || !isset($options['append'])){
+	    		$this->session->state = md5(microtime().'-'.get_class($this)).$options['path'];
+    		}else{
+	    		$this->session->state = $options['path'];
+    		}
+    	}else{
+	    	    $this->session->state = md5(microtime().'-'.get_class($this));
+    	}
         return $this->session->state;
     }
     
@@ -136,13 +144,10 @@ abstract class AbstractOAuth2Client
     
     public function getHttpClient()
     {
-        
         if(!$this->httpClient) {
             $this->httpClient = new OAuth2HttpClient(null, array('timeout' => 30, 'adapter' => '\Zend\Http\Client\Adapter\Curl'));
         }
-        
         return $this->httpClient;
-        
     }
     
 }

@@ -13,10 +13,10 @@ class Github extends AbstractOAuth2Client
     public function getUrl()
     {
         
-        $url = $this->options->getAuthUri().'?'
+        $url = $this->options->getAuthUri($options = null).'?'
             . 'redirect_uri='  . urlencode($this->options->getRedirectUri())
             . '&client_id='    . $this->options->getClientId()
-            . '&state='        . $this->generateState()
+            . '&state='        . $this->generateState($options)
             . $this->getScope(',');
 
         return $url;

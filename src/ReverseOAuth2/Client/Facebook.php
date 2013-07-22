@@ -10,13 +10,13 @@ class Facebook extends AbstractOAuth2Client
 
     protected $providerName = 'facebook';
     
-    public function getUrl()
+    public function getUrl($options = null)
     {
         
         $url = $this->options->getAuthUri().'?'
             . 'redirect_uri='  . urlencode($this->options->getRedirectUri())
             . '&client_id='    . $this->options->getClientId()
-            . '&state='        . $this->generateState()
+            . '&state='        . $this->generateState($options)
             . $this->getScope(',');
 
         return $url;
