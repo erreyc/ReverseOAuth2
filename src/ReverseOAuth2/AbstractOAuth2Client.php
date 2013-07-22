@@ -27,7 +27,7 @@ abstract class AbstractOAuth2Client
      */
     protected $httpClient;
 
-    abstract public function getUrl();
+    abstract public function getUrl($options = null);
     
     abstract public function getToken(Request $request);
     
