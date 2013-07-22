@@ -92,6 +92,7 @@ abstract class AbstractOAuth2Client
     protected function generateState($options)
     {
     	$returnVal = null;
+    	$this->session->state = null;
     	if(isset($options) && !empty($options)){
     		if($options['append']== true || !isset($options['append'])){
 	    		$this->session->state = md5(microtime().'-'.get_class($this)).$options['path'];
