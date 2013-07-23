@@ -33,7 +33,7 @@ class Google extends AbstractOAuth2Client
             
             return true;
             
-        } elseif(strlen($this->session->state) > 0 AND $this->session->state == $request->getQuery('state') AND strlen($request->getQuery('code')) > 5) {
+        } elseif(strlen($this->session->state) > 0 AND ($this->session->state == $request->getQuery('state') ||  $this->session->state == urlencode($request->getQuery('state'))) AND strlen($request->getQuery('code')) > 5) {
             
             $client = $this->getHttpClient();
             
