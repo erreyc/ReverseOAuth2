@@ -95,8 +95,10 @@ abstract class AbstractOAuth2Client
     	$this->session->state = null;
     	if(isset($options) && !empty($options)){
     		if($options['append']== true || !isset($options['append'])){
-	    		$this->session->state = md5(microtime().'-'.get_class($this)).$options['path'];
-				$returnVal = md5(microtime().'-'.get_class($this)).urlencode($options['path']);
+	    		//$this->session->state = md5(microtime().'-'.get_class($this)).$options['path'];
+				//$returnVal = md5(microtime().'-'.get_class($this)).urlencode($options['path']);
+				$this->session->state = $returnVal = urlencode(md5(microtime().'-'.get_class($this)).$options['path']);
+
     		}else{
 	    		$this->session->state = $options['path'];
 	    		$returnVal = $this->session->state;
